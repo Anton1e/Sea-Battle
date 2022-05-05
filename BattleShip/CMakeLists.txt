@@ -16,4 +16,5 @@ add_executable(BattleShip ./src/main.cpp
                           ./map/Board.cpp
                           ./map/Cell.cpp
                           ./player/Player.cpp
-                          ./game/Game.cpp)
+                          ./game/Game.cpp
+                          ./interface/Interface.cpp)

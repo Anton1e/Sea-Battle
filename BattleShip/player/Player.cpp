@@ -17,80 +17,63 @@ void Player::setShips() {
     std::string start_position, end_position;
 
     for (int i = 0; i < number_of_submarines_; ++i) {
-        board_->printBoard();
-        std::cout << i + 1 << '\\' << number_of_submarines_  << ' ';
-        std::cout << "Please set your submarines(size 1 ships)\n";
-        std::cin >> start_position;
+        start_position = interface.printSetSubmarine(board_, i);
         while (!checkPositions(start_position, start_position, 1)) {
-            std::cout << "Positions are not valid, please try again\n";
-            std::cin >> start_position;
+            start_position = interface.printNotValidPosition().first;
         }
         submarines_.push_back(new Submarine());
         board_->setShip(start_position, start_position, 'S', i);
     }
 
     for (int i = 0; i < number_of_destroyers_; ++i) {
-        board_->printBoard();
-        std::cout << i + 1 << '\\' << number_of_destroyers_ << ' ';
-        std::cout << "Please set your destroyers(size 2 ships)\n";
-        std::cin >> start_position >> end_position;
+        std::pair<std::string, std::string> positions = interface.printSetDestroyer(board_, i);
+        start_position = positions.first;
+        end_position = positions.second;
         while (!checkPositions(start_position, end_position, 2)) {
-            std::cout << "Positions are not valid, please try again\n";
-            std::cin >> start_position >> end_position;
+            positions = interface.printNotValidPosition();
+            start_position = positions.first;
+            end_position = positions.second;
         }
         destroyers_.push_back(new Destroyer());
         board_->setShip(start_position, end_position, 'D', i);
     }
 
     for (int i = 0; i < number_of_battleships_; ++i) {
-        board_->printBoard();
-        std::cout << i + 1 << '\\' << number_of_battleships_ << ' ';
-        std::cout << "Please set your battleships(size 3 ships)\n";
-        std::cin >> start_position >> end_position;
+        std::pair<std::string, std::string> positions = interface.printSetBattleship(board_, i);
+        start_position = positions.first;
+        end_position = positions.second;
         while (!checkPositions(start_position, end_position, 3)) {
-            std::cout << "Positions are not valid, please try again\n";
-            std::cin >> start_position >> end_position;
+            positions = interface.printNotValidPosition();
+            start_position = positions.first;
+            end_position = positions.second;
         }
         battleships_.push_back(new Battleship());
         board_->setShip(start_position, end_position, 'B', i);
     } 
 
     for (int i = 0; i < number_of_carriers_; ++i) {
-        board_->printBoard();
-        std::cout << i + 1 << '\\' << number_of_carriers_ << ' ';
-        std::cout << "Please set your carriers(size 4 ships)\n";
-        std::cin >> start_position >> end_position;
+        std::pair<std::string, std::string> positions = interface.printSetCarrier(board_, i);
+        start_position = positions.first;
+        end_position = positions.second;
         while (!checkPositions(start_position, end_position, 4)) {
-            std::cout << "Positions are not valid, please try again\n";
-            std::cin >> start_position >> end_position;
+            positions = interface.printNotValidPosition();
+            start_position = positions.first;
+            end_position = positions.second;
         }
         carriers_.push_back(new Carrier());
         board_->setShip(start_position, end_position, 'C', i);
     }
-
-    //board_->withoutShipTypes();
-}
-
-// get coordinates for fired cell
-std::pair<int, int> Player::getCoor() {
-    board_->printBoard();
-    std::cout << "Which cell would you like to attack?\n";
-    std::string pos;
-    std::cin >> pos;
-
-    int x_coor =  pos[0] - 'A', y_coor = pos[1] - '0';
     
-    return std::make_pair(x_coor, y_coor);
+    board_->withoutShipTypes();
 }
 
 // fire a cell
 void Player::fire() {
-    std::pair<int, int> coors = getCoor();
+    std::pair<int, int> coors = interface.getCoorForAttack(board_);
     int x_coor = coors.first, y_coor = coors.second;
 
     while (board_->getCell(x_coor, y_coor)->isBoat()) {
-        std::cout << "You hit an oppenent's boat!!!\n";
-        std::cout << "It's your turn again!\n";
+        interface.printWhenHit();
         
         char ship_type = board_->getCell(x_coor, y_coor)->getBoatType();
         int ship_number = board_->getCell(x_coor, y_coor)->getBoatNumber();
@@ -131,13 +114,13 @@ void Player::fire() {
 
         board_->getCell(x_coor, y_coor)->changeCellWhenHitWithBoat();
             
-        coors = getCoor();
+        coors = interface.getCoorForAttack(board_);
         x_coor = coors.first;
         y_coor = coors.second;
     }
 
     if (!board_->getCell(x_coor, y_coor)->isBoat()) {
-        std::cout << "Too bad( You missed\n";
+        interface.printWhenMissHit();
        
         if (board_->getCell(x_coor, y_coor)->getType() == 'X') {
             return;

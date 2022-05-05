@@ -7,6 +7,7 @@
 #include "Destroyer.h"
 #include "Battleship.h"
 #include "Carrier.h"
+#include "Interface.h"
 
 class Player {
 public:
@@ -16,9 +17,6 @@ public:
 
     // set ships
     void setShips();
-
-    // get coordinates for fired cell
-    std::pair<int, int> getCoor();
     
     // fire a cell
     void fire();
@@ -40,10 +38,10 @@ private:
     void clearCarriers();
 
     // number of boats
-    static const int total_number_of_ships_ = 10;
-    static const int number_of_submarines_ = 4;
-    static const int number_of_destroyers_ = 3;
-    static const int number_of_battleships_ = 2;
+    static const int total_number_of_ships_ = 4;
+    static const int number_of_submarines_ = 1;
+    static const int number_of_destroyers_ = 1;
+    static const int number_of_battleships_ = 1;
     static const int number_of_carriers_ = 1;
 
     // set of boats for the player
@@ -57,4 +55,7 @@ private:
 
     // player's parameters
     int number_of_dead_ships_;
+
+    // interface
+    Interface interface;
 };
