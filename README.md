@@ -6,3 +6,6 @@ cmake ..
 make
 ./BattleShip
 ```
+
+Changes:
+1) A terminal interface was added to the game
