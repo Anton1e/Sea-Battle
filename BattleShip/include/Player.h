@@ -38,10 +38,10 @@ private:
     void clearCarriers();
 
     // number of boats
-    static const int total_number_of_ships_ = 4;
-    static const int number_of_submarines_ = 1;
-    static const int number_of_destroyers_ = 1;
-    static const int number_of_battleships_ = 1;
+    static const int total_number_of_ships_ = 10;
+    static const int number_of_submarines_ = 4;
+    static const int number_of_destroyers_ = 3;
+    static const int number_of_battleships_ = 2;
     static const int number_of_carriers_ = 1;
 
     // set of boats for the player

@@ -19,7 +19,7 @@ void Player::setShips() {
     for (int i = 0; i < number_of_submarines_; ++i) {
         start_position = interface.printSetSubmarine(board_, i);
         while (!checkPositions(start_position, start_position, 1)) {
-            start_position = interface.printNotValidPosition().first;
+            start_position = interface.printNotValidPosition(true).first;
         }
         submarines_.push_back(new Submarine());
         board_->setShip(start_position, start_position, 'S', i);
@@ -30,7 +30,7 @@ void Player::setShips() {
         start_position = positions.first;
         end_position = positions.second;
         while (!checkPositions(start_position, end_position, 2)) {
-            positions = interface.printNotValidPosition();
+            positions = interface.printNotValidPosition(false);
             start_position = positions.first;
             end_position = positions.second;
         }
@@ -43,7 +43,7 @@ void Player::setShips() {
         start_position = positions.first;
         end_position = positions.second;
         while (!checkPositions(start_position, end_position, 3)) {
-            positions = interface.printNotValidPosition();
+            positions = interface.printNotValidPosition(false);
             start_position = positions.first;
             end_position = positions.second;
         }
@@ -56,7 +56,7 @@ void Player::setShips() {
         start_position = positions.first;
         end_position = positions.second;
         while (!checkPositions(start_position, end_position, 4)) {
-            positions = interface.printNotValidPosition();
+            positions = interface.printNotValidPosition(false);
             start_position = positions.first;
             end_position = positions.second;
         }
