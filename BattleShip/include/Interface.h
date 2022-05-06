@@ -15,7 +15,7 @@ public:
     std::pair<std::string, std::string> printSetBattleship(Board* board, int x);
     std::pair<std::string, std::string> printSetCarrier(Board* board, int x);
 
-    std::pair<std::string, std::string> printNotValidPosition();
+    std::pair<std::string, std::string> printNotValidPosition(bool is_only);
 
     void printWhenMissHit();
     void printWhenHit();

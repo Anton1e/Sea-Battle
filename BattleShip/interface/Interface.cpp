@@ -45,11 +45,15 @@ std::pair<std::string, std::string> Interface::printSetCarrier(Board* board, int
     return std::make_pair(start_position, end_position);
 }
 
-std::pair<std::string, std::string> Interface::printNotValidPosition() {
+std::pair<std::string, std::string> Interface::printNotValidPosition(bool is_only) {
     std::string start_position, end_position;
 
     std::cout << "Positions are not valid, please try again\n";
-    std::cin >> start_position >> end_position;
+    std::cin >> start_position;
+
+    if (!is_only) {
+        std::cin >> end_position;
+    }
 
     return std::make_pair(start_position, end_position);
 }
