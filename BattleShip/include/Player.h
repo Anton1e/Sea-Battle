@@ -7,7 +7,7 @@
 #include "Destroyer.h"
 #include "Battleship.h"
 #include "Carrier.h"
-#include "Interface.h"
+#include "Skill.h"
 
 class Player {
 public:
@@ -16,20 +16,32 @@ public:
     ~Player();
 
     // set ships
-    void setShips();
+    void setShips(std::string, std::string, char type);
     
     // fire a cell
-    void fire();
+    void fire(std::pair<int, int> coors);
 
     // check if lost
     bool isGameover();
 
     // accessor 
     Board* getBoard();
+    int getPoints();
+    int getSkillIndicator();
+    int getSkillPoints();
+
+    // set the skill
+    void setSkillIndicator(int x); 
+
+    // use the chosen skill
+    void useSkill(int row, int column);
+
+    // check whether a ship could be placed;
+    bool checkIfValid(std::string first_pos, std::string second_pos, int expected_length);
 
 private:
-    // check whether a ship could be placed;
-    bool checkPositions(std::string first_pos, std::string second_pos, int expected_length);
+    // check which ship was hit
+    void checkWhatWasHit(int x_coor, int y_coor);
 
     // deleters
     void clearSubmarines();
@@ -55,7 +67,9 @@ private:
 
     // player's parameters
     int number_of_dead_ships_;
+    int points_;
 
-    // interface
-    Interface interface;
+    // skill 
+    int skill_indicator_;
+    std::vector<Skill*> skills_;
 };

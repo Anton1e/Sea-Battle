@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <stdlib.h>
+#include <unistd.h>
 #include "Board.h"
 
 class Interface {
@@ -10,6 +11,10 @@ public:
     ~Interface() = default;
 
     // printint texts
+    int printPickSkill(int x);
+
+    void printBoard(Board* board);
+
     std::string printSetSubmarine(Board* board, int x);
     std::pair<std::string, std::string> printSetDestroyer(Board* board, int x);
     std::pair<std::string, std::string> printSetBattleship(Board* board, int x);
@@ -28,4 +33,10 @@ public:
     void startAttackPhase(int x);
 
     void clear();
+    void ssleep(int x);
+
+    char suggestSkill(Board* board, int x);
+    std::pair<int, int> printUsingDestroyRow();
+    std::pair<int, int> printUsingDestroySquare();
+    std::pair<int, int> printSkillMenu(int x);
 };

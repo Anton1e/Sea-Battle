@@ -9,15 +9,14 @@ public:
     // Con/Des
     Board();
     ~Board();
-    
-    // printing
-    void printBoard();
 
     // put a ship down
     void setShip(std::string first_pos, std::string second_pos, char ship_type, int ship_number);
 
     // accessor
     Cell* getCell(int x, int y);
+    int getWidth();
+    int getHeight();
 
     // remove ship types as they are only shown during setting phase
     void withoutShipTypes();
