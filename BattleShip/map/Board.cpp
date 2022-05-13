@@ -18,22 +18,6 @@ Board::~Board() {
     }
 }
 
-// printing 
-void Board::printBoard() {
-    std::cout << "  ";
-    for (int i = 0; i < width_; ++i) {
-        std::cout << i << " ";
-    }
-    std::cout << '\n';
-    for (int i = 0; i < height_; ++i) {
-        std::cout << static_cast<char>('A' + i) << " ";
-        for (int j = 0; j < width_; ++j) {
-            std::cout << board_[i][j]->getType() << " ";
-        }
-        std::cout << '\n';
-    }
-}
-
 // put a ship down
 void Board::setShip(std::string first_pos, std::string second_pos, char ship_type, int ship_number) {
     int first_x = first_pos[0] - 'A', first_y = first_pos[1] - '0';
@@ -52,6 +36,14 @@ void Board::setShip(std::string first_pos, std::string second_pos, char ship_typ
 // accessor
 Cell* Board::getCell(int x, int y) {
     return board_[x][y];
+}
+
+int Board::getWidth() {
+    return width_;
+}
+
+int Board::getHeight() {
+    return height_;
 }
 
 // remove ship types as they are only shown during setting phase
